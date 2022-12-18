@@ -4,7 +4,8 @@ import sys
 import tty
 import termios
 import time
- 
+import datetime
+
 N = 1
 typed_key = ''
 print( 4*string.digits + 2*'4589_=+' + string.punctuation)
@@ -57,12 +58,18 @@ while looping:
 end_time = time.time()
 duration = end_time - start_time
 num_wrong = num_typed - num_right
-#num_right = num_typed - num_wrong
 
-#print('keys: {0}, typed {1}, right: {2}, wrong: {3}'.
-#      format(num_test_keys, num_typed, num_right, num_wrong))
+output=''
+result=''
+
 if num_test_keys > 0:
-    print('{0} keys in {1:0.1f} secs, {2:0.0f}% accuracy at {3:.02f} keys per second'.
-        format(num_test_keys, duration, 100*num_right/(num_wrong + num_right), num_right/duration))
+    result='{0}\tkeys\t{1:0.1f}\tsecs\t{2:0.0f}\t%\t{3:.02f}\tkps'.format(num_test_keys, duration, 100*num_right/(num_wrong + num_right), num_right/duration)
+    timestamp=datetime.datetime.now()
+    output = '{0}\t{1}'.format(timestamp.strftime('%Y-%m-%d %H:%M:%S'), result)
+    print(output)
+    f = open("results.txt", "a")
+    f.write(output + "\n")
+    f.close()
 else:
-    print('Duration: {0:.0f},  no keys tested')
+    print('No keys tested')
+
