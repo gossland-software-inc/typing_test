@@ -9,6 +9,8 @@ import datetime
 N = 1
 typed_key = ''
 print( 4*string.digits + 2*'4589_=+' + string.punctuation)
+print( "Enter 'q' to quit")
+remind_at = 100
 start_time = time.time()
 num_right=0
 num_wrong=0
@@ -33,10 +35,12 @@ while looping:
                 num_typed = num_typed + 1
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-        print(typed_key )
         if new_key and typed_key != 'q':
             num_test_keys = num_test_keys + 1
             new_key = False
+        if num_test_keys % remind_at == 0:
+            print('\n{0} typed keys ----------------'.format(num_test_keys))
+        print(typed_key )
         if typed_key == test_key:
             num_right = num_right + 1
             break
