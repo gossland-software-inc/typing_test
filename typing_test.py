@@ -40,6 +40,8 @@ while looping:
             new_key = False
         if num_test_keys % remind_at == 0:
             print('\n{0} typed keys ----------------'.format(num_test_keys))
+            typed_key='q'
+            break
         print(typed_key )
         if typed_key == test_key:
             num_right = num_right + 1
