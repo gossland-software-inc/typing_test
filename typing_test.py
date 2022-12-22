@@ -6,11 +6,15 @@ import termios
 import time
 import datetime
 
+if len(sys.argv) > 1:
+    remind_at = int(sys.argv[1])
+else:
+    remind_at = 100
 N = 1
 typed_key = ''
+print( 'Test of {0} keys'.format(remind_at))
 print( 4*string.digits + 2*'4589_=+' + string.punctuation)
 print( "Enter 'q' to quit")
-remind_at = 100
 start_time = time.time()
 num_right=0
 num_wrong=0
@@ -38,15 +42,14 @@ while looping:
         if new_key and typed_key != 'q':
             num_test_keys = num_test_keys + 1
             new_key = False
+        print(typed_key )
+        if typed_key == test_key:
+            num_right = num_right + 1
         if num_test_keys % remind_at == 0:
             print('\n{0} typed keys ----------------'.format(num_test_keys))
             typed_key='q'
             break
-        print(typed_key )
-        if typed_key == test_key:
-            num_right = num_right + 1
-            break
-        if typed_key == 'q':
+        if typed_key == test_key or typed_key == 'q':
             break
 
     looping = typed_key != 'q'
