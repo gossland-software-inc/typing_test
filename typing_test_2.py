@@ -13,6 +13,9 @@ else:
 N = 1
 typed_key = ''
 char_list = 4*string.digits + 2*'4589_=+' + string.punctuation
+f = open("wrong_keys.txt", "r")
+char_list = char_list + 2*f.read().strip()
+f.close()
 print( 'Test of {0} keys'.format(remind_at))
 print( char_list )
 print( "Enter 'q' to quit")
@@ -23,6 +26,7 @@ num_typed=0
 num_test_keys=0
 test_key=''
 last_test_key=''
+wrong_keys=''
 quit_now=False
 
 random.seed()
@@ -44,6 +48,8 @@ while True:
         print(typed_key )
         if typed_key == test_key:
             num_right = num_right + 1
+        else:
+            wrong_keys = wrong_keys + test_key
         if num_test_keys % remind_at == 0:
             print('\n{0} test keys ----------------'.format(num_test_keys))
             quit_now = True
@@ -64,11 +70,15 @@ num_wrong = num_typed - num_right
 
 
 print('{0} test keys, {1} typed keys, {2} right keys, {3} wrong keys'.format(num_test_keys, num_typed, num_right, num_wrong))
+print('Wrong keys were {0}'.format(wrong_keys))
+f = open("wrong_keys.txt", "w")
+f.write(wrong_keys + "\n")
+f.close()
 
 output=''
 result=''
 
-if num_wrong + num_right   > 0:
+if quit_now:
     result='{0}\tkeys\t{1:0.1f}\tsecs\t{2:0.0f}\t%\t{3:.02f}\tkps'.format(num_test_keys, duration, 100*num_right/(num_wrong + num_right), num_right/duration)
     timestamp=datetime.datetime.now()
     output = '{0}\t{1}'.format(timestamp.strftime('%Y-%m-%d %H:%M:%S'), result)
@@ -77,5 +87,5 @@ if num_wrong + num_right   > 0:
     f.write(output + "\n")
     f.close()
 else:
-    print('No keys tested')
+    print('No results saved')
 
