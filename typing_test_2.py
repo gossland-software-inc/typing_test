@@ -12,7 +12,7 @@ else:
     remind_at = 100
 N = 1
 typed_key = ''
-char_list = 4*string.digits + 2*'4589_=+' + string.punctuation + string.ascii_letters
+char_list = 4*string.digits + 2*'4589_=+' + string.punctuation
 print( 'Test of {0} keys'.format(remind_at))
 print( char_list )
 print( "Enter 'q' to quit")
