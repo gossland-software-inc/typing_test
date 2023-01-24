@@ -74,6 +74,9 @@ print('Wrong keys were {0}'.format(wrong_keys))
 f = open("wrong_keys.txt", "w")
 f.write(wrong_keys + "\n")
 f.close()
+f = open("all_wrong_keys.txt", "a")
+f.write(wrong_keys + "\n")
+f.close()
 
 output=''
 result=''
